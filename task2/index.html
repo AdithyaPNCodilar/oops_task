@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+</head>
+<body>
+    <table id="table" border="2">
+        <thead style="background-color: olive;">
+            <th>Name</th>
+            <th>Dob</th>
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>Mark</th>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+    
+    <script>
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'student.php');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const student = JSON.parse(xhr.responseText);
+          const tbody = document.getElementById('tbody');
+
+          student.forEach(student => {
+
+            const tr = document.createElement('tr');
+            const nameTd = document.createElement('td');
+            nameTd.innerText = student.name;
+            tr.appendChild(nameTd);
+
+            const dobTd = document.createElement('td');
+            dobTd.innerText = student.dob;
+            tr.appendChild(dobTd);
+
+            const subjectTd = document.createElement('td');
+            subjectTd.innerText = student.subject;
+            tr.appendChild(subjectTd);
+            
+            const teacherTd = document.createElement('td');
+            teacherTd.innerText = student.teacher;
+            tr.appendChild(teacherTd);
+
+            const markTd = document.createElement('td');
+            markTd.innerText = student.mark;
+            tr.appendChild(markTd);
+            tbody.appendChild(tr);
+
+          });
+        }
+      };
+      xhr.send();
+    </script>
+</body>
+</html>
